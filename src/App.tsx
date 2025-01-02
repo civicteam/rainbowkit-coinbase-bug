@@ -1,14 +1,16 @@
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import {useAccount, useBalance, useConnect, useDisconnect} from 'wagmi'
 
 function App() {
   const account = useAccount()
   const { connectors, connect, status, error } = useConnect()
   const { disconnect } = useDisconnect()
+  const { data } = useBalance();
 
   return (
     <>
       <div>
         <h2>Account</h2>
+        <div>Balance: {data?.value?.toString()}</div>
 
         <div>
           status: {account.status}
