@@ -1,17 +1,15 @@
-import { http, createConfig } from 'wagmi'
 import { mainnet, sepolia } from 'wagmi/chains'
-import { injected } from 'wagmi/connectors'
+import { injectedWallet } from '@rainbow-me/rainbowkit/wallets';
+import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 
-export const config = createConfig({
+export const config = getDefaultConfig({
+  appName: 'Multichain Modal Example',
+  projectId: '',
   chains: [mainnet, sepolia],
-  connectors: [
-    injected()
+  wallets: [
+    { groupName: 'Installed', wallets: [injectedWallet] },
   ],
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-})
+});
 
 declare module 'wagmi' {
   interface Register {
